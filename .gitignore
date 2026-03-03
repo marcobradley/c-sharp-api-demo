@@ -34,6 +34,9 @@ Thumbs.db
 packages/
 *.nupkg
 
+# Node
+node_modules/
+
 # Dotnet tools and test results
 TestResults/
 .artifacts/
