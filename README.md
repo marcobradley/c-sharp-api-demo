@@ -14,6 +14,8 @@ GitHub releases are generated from commit messages using Conventional Commits.
 
 The release config in [package.json](package.json) uses plugin option format with an explicit preset:
 
+Required package for this preset: `conventional-changelog-conventionalcommits`.
+
 - `@semantic-release/commit-analyzer` with `{ "preset": "conventionalcommits" }`
 - `@semantic-release/release-notes-generator` with `{ "preset": "conventionalcommits" }`
 - `@semantic-release/github`
