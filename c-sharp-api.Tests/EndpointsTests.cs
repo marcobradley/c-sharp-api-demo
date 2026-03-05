@@ -66,4 +66,31 @@ public class EndpointsTests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
+
+    [Fact]
+    public async Task TwoSum_ReturnsBadRequest_WhenLessThanTwoNumbers()
+    {
+        var response = await _client.PostAsJsonAsync("/twosum", new
+        {
+            nums = new[] { 7 },
+            target = 10
+        });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task TwoSum_ReturnsMaxResult_FromJsonBody()
+    {
+        var response = await _client.PostAsJsonAsync("/twosum", new
+        {
+            nums = new[] { 7, 1, 5, 3, 6, 4 },
+            target = 10
+        });
+
+        response.EnsureSuccessStatusCode();
+        var result = await response.Content.ReadFromJsonAsync<int[]>();
+
+        Assert.Equal(new[] { 1, 4 }, result);
+    }
 }
