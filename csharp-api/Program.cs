@@ -92,6 +92,25 @@ static string ExpandCenter(int left, int right, string s)
     return s.Substring(left + 1, right - left - 1);
 }
 
+app.MapPost("/twosum", (TwoSumRequest request) =>
+{
+    var nums = request.Nums;
+    var target = request.Target;
+    Dictionary<int,int> found = new Dictionary<int,int>();
+    int diff = 0;
+    for(int i = 0; i < nums.Length; i++)
+    {
+        diff = target - nums[i];
+        if(found.ContainsKey(diff)){
+            return Results.Ok(new[] {found[diff], i});
+        }
+        if(!found.ContainsKey(nums[i]))
+            found.Add(nums[i], i);
+    }
+
+    return Results.BadRequest("No two sum solution found.");
+}).WithName("GetTwoSum");
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
@@ -102,5 +121,7 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 record BestTimeToBuyOrSellStockRequest(int[] Prices);
 
 record LongestPalidromicSubstringRequest(string S);
+
+record TwoSumRequest(int[] Nums, int Target);
 
 public partial class Program;
