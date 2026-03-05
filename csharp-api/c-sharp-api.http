@@ -3,10 +3,24 @@
 GET {{c_sharp_api_HostAddress}}/weatherforecast/
 Accept: application/json
 
-GET {{c_sharp_api_HostAddress}}/besttimetobyorsellstock/
-Accept: application/json
+###
 
-GET {{c_sharp_api_HostAddress}}/longestpalidromicsubstring/
+POST {{c_sharp_api_HostAddress}}/besttimetobyorsellstock/
 Accept: application/json
+Content-Type: application/json
+
+{
+	"prices": [7, 1, 5, 3, 6, 4]
+}
+
+###
+
+POST {{c_sharp_api_HostAddress}}/longestpalidromicsubstring/
+Accept: application/json
+Content-Type: application/json
+
+{
+	"s": "babad"
+}
 
 ###
