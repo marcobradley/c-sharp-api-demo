@@ -33,8 +33,10 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-app.MapGet("/besttimetobyorsellstock", (int[] prices) =>
+app.MapPost("/besttimetobyorsellstock", (BestTimeToBuyOrSellStockRequest request) =>
 {
+    var prices = request.Prices;
+
     if (prices == null || prices.Length < 2)
     {
         return Results.BadRequest("Please provide at least two stock prices.");
@@ -53,8 +55,10 @@ app.MapGet("/besttimetobyorsellstock", (int[] prices) =>
     return Results.Ok(maxProfit);
 }).WithName("GetBestTimeToBuyOrSellStock");
 
-app.MapGet("/longestpalidromicsubstring", (string s) =>
+app.MapPost("/longestpalidromicsubstring", (LongestPalidromicSubstringRequest request) =>
 {
+    var s = request.S;
+
     if (string.IsNullOrEmpty(s))
     {
         return Results.BadRequest("Please provide a non-empty string.");
@@ -94,3 +98,9 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+record BestTimeToBuyOrSellStockRequest(int[] Prices);
+
+record LongestPalidromicSubstringRequest(string S);
+
+public partial class Program;
