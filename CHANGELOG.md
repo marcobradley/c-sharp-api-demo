@@ -1,4 +1,4 @@
-## [0.0.0-development](https://github.com/marcobradley/csharp-api-demo/compare/v2.2.0...v0.0.0-development) (2026-03-09)
+## [0.0.0-development](https://github.com/marcobradley/csharp-api-demo/compare/v2.2.1...v0.0.0-development) (2026-03-09)
 
 ### ⚠ BREAKING CHANGES
 
@@ -20,4 +20,5 @@
 ### Bug Fixes
 
 * renamed project ([51c305e](https://github.com/marcobradley/csharp-api-demo/commit/51c305e5c5c47f06b4f166b80543a9efe29345d0))
+* update release action token ([4489cef](https://github.com/marcobradley/csharp-api-demo/commit/4489cefdf7d1a3789445782016f3804830212a2d))
 * updated to be a post and adding test ([c5e826c](https://github.com/marcobradley/csharp-api-demo/commit/c5e826c3b8c05a479f101662511093948843d5c3))
