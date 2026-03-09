@@ -24,3 +24,16 @@ Content-Type: application/json
 }
 
 ###
+
+###
+
+POST {{c_sharp_api_HostAddress}}/longestpalidromicsubstring/
+Accept: application/json
+Content-Type: application/json
+
+{
+	"nums": [7, 1, 5, 3, 6, 4],
+	"target": 9
+}
+
+###
