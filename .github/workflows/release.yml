@@ -53,7 +53,7 @@ jobs:
       - name: Create pull request for changelog
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GIT_ACTIONS_TOKEN }}
           commit-message: 'chore(changelog): update CHANGELOG.md'
           title: 'chore(changelog): update CHANGELOG.md'
           body: |
