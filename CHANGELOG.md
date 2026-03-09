@@ -1,7 +1,9 @@
-## [0.0.0-development](https://github.com/marcobradley/csharp-api-demo/compare/v2.2.2...v0.0.0-development) (2026-03-09)
+## [0.0.0-development](https://github.com/marcobradley/csharp-api-demo/compare/v3.0.0...v0.0.0-development) (2026-03-09)
 
 ### ⚠ BREAKING CHANGES
 
+* adding major and minor tagging
+* Incorporating DI to abstract the logic
 * renamed project
 * fixing the action
 * bump
@@ -9,11 +11,13 @@
 
 ### Features
 
+* adding major and minor tagging ([c3462ab](https://github.com/marcobradley/csharp-api-demo/commit/c3462abe0a2df3481ce2ab125191d2b1b347ff5f))
 * adding new endpoints ([6d1e89d](https://github.com/marcobradley/csharp-api-demo/commit/6d1e89d5345b80509437483621959ede92339907))
 * Adding tests ([811ac10](https://github.com/marcobradley/csharp-api-demo/commit/811ac10830cac251021e5771aa03594e7df79ef4))
 * adding two sums problem ([437b9ed](https://github.com/marcobradley/csharp-api-demo/commit/437b9ed4ba7918555343de6d8e1ff1b65c0938e7))
 * bump ([447b22b](https://github.com/marcobradley/csharp-api-demo/commit/447b22ba64cb844e2a3d656e8b71f73de439b5d2))
 * fixing the action ([f8678f4](https://github.com/marcobradley/csharp-api-demo/commit/f8678f4d8844a6448dd46ea377427e9d7d425d0a))
+* Incorporating DI to abstract the logic ([61a4f42](https://github.com/marcobradley/csharp-api-demo/commit/61a4f42889d9dc1cb31dd7f427d8d1773db1df5a))
 * Initial project ([77029c1](https://github.com/marcobradley/csharp-api-demo/commit/77029c12a336c1c6297695740878e33dd1529b35))
 * updating release yml ([471968f](https://github.com/marcobradley/csharp-api-demo/commit/471968ffe811ecb8a252ef73f6d1132e6ba58d3a))
 
