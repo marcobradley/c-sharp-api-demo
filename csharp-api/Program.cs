@@ -3,6 +3,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddSingleton<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddSingleton<IStockAnalysisService, StockAnalysisService>();
+builder.Services.AddSingleton<IPalindromeService, PalindromeService>();
+builder.Services.AddSingleton<ITwoSumService, TwoSumService>();
 
 var app = builder.Build();
 
@@ -14,26 +18,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/weatherforecast", (IWeatherForecastService weatherForecastService) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
+    var forecast = weatherForecastService.GetForecast();
     return forecast;
 })
 .WithName("GetWeatherForecast");
 
-app.MapPost("/besttimetobyorsellstock", (BestTimeToBuyOrSellStockRequest request) =>
+app.MapPost("/besttimetobyorsellstock", (BestTimeToBuyOrSellStockRequest request, IStockAnalysisService stockAnalysisService) =>
 {
     var prices = request.Prices;
 
@@ -42,20 +34,11 @@ app.MapPost("/besttimetobyorsellstock", (BestTimeToBuyOrSellStockRequest request
         return Results.BadRequest("Please provide at least two stock prices.");
     }
 
-    int maxProfit = 0;
-    int minPrice = int.MaxValue;
-    minPrice = minPrice > prices[0] ? prices[0] : minPrice;
-
-    for (int i = 1; i < prices.Length; i++)
-    {
-        minPrice = minPrice > prices[i] ? prices[i] : minPrice;
-        maxProfit = prices[i] - minPrice > maxProfit ? prices[i] - minPrice : maxProfit;
-    }
-
+    var maxProfit = stockAnalysisService.GetMaxProfit(prices);
     return Results.Ok(maxProfit);
 }).WithName("GetBestTimeToBuyOrSellStock");
 
-app.MapPost("/longestpalidromicsubstring", (LongestPalidromicSubstringRequest request) =>
+app.MapPost("/longestpalidromicsubstring", (LongestPalidromicSubstringRequest request, IPalindromeService palindromeService) =>
 {
     var s = request.S;
 
@@ -64,48 +47,23 @@ app.MapPost("/longestpalidromicsubstring", (LongestPalidromicSubstringRequest re
         return Results.BadRequest("Please provide a non-empty string.");
     }
 
-    string sReturn = "";
-    string temp = "";
-    for(int i = 0; i < s.Length; i++){
-
-        temp = ExpandCenter(i, i, s);
-
-        if(sReturn.Length < temp.Length)
-            sReturn = temp;
-
-        temp = ExpandCenter(i, i + 1, s);
-
-        if(sReturn.Length < temp.Length)
-            sReturn = temp;
-    }
-
+    var sReturn = palindromeService.GetLongestPalindromicSubstring(s);
     return Results.Ok(sReturn);
 }).WithName("GetLongestPalindromicSubstring");
 
-static string ExpandCenter(int left, int right, string s)
-{
-    while (left >= 0 && right < s.Length && s[left] == s[right])
-    {
-        left--;
-        right++;
-    }
-    return s.Substring(left + 1, right - left - 1);
-}
-
-app.MapPost("/twosum", (TwoSumRequest request) =>
+app.MapPost("/twosum", (TwoSumRequest request, ITwoSumService twoSumService) =>
 {
     var nums = request.Nums;
     var target = request.Target;
-    Dictionary<int,int> found = new Dictionary<int,int>();
-    int diff = 0;
-    for(int i = 0; i < nums.Length; i++)
+
+    if (nums == null || nums.Length < 2)
     {
-        diff = target - nums[i];
-        if(found.ContainsKey(diff)){
-            return Results.Ok(new[] {found[diff], i});
-        }
-        if(!found.ContainsKey(nums[i]))
-            found.Add(nums[i], i);
+        return Results.BadRequest("Please provide at least two numbers.");
+    }
+
+    if (twoSumService.TryFindPair(nums, target, out var pair))
+    {
+        return Results.Ok(pair);
     }
 
     return Results.BadRequest("No two sum solution found.");
@@ -113,7 +71,7 @@ app.MapPost("/twosum", (TwoSumRequest request) =>
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
