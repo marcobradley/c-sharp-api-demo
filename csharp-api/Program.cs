@@ -21,7 +21,7 @@ app.UseHttpsRedirection();
 app.MapGet("/weatherforecast", (IWeatherForecastService weatherForecastService) =>
 {
     var forecast = weatherForecastService.GetForecast();
-    return forecast;
+    return Results.Ok(new { forecast });
 })
 .WithName("GetWeatherForecast");
 
@@ -35,7 +35,7 @@ app.MapPost("/besttimetobyorsellstock", (BestTimeToBuyOrSellStockRequest request
     }
 
     var maxProfit = stockAnalysisService.GetMaxProfit(prices);
-    return Results.Ok(maxProfit);
+    return Results.Ok(new { maxProfit });
 }).WithName("GetBestTimeToBuyOrSellStock");
 
 app.MapPost("/longestpalidromicsubstring", (LongestPalidromicSubstringRequest request, IPalindromeService palindromeService) =>
@@ -47,8 +47,8 @@ app.MapPost("/longestpalidromicsubstring", (LongestPalidromicSubstringRequest re
         return Results.BadRequest("Please provide a non-empty string.");
     }
 
-    var sReturn = palindromeService.GetLongestPalindromicSubstring(s);
-    return Results.Ok(sReturn);
+    var palidrome = palindromeService.GetLongestPalindromicSubstring(s);
+    return Results.Ok(new { palidrome });
 }).WithName("GetLongestPalindromicSubstring");
 
 app.MapPost("/twosum", (TwoSumRequest request, ITwoSumService twoSumService) =>
@@ -63,7 +63,7 @@ app.MapPost("/twosum", (TwoSumRequest request, ITwoSumService twoSumService) =>
 
     if (twoSumService.TryFindPair(nums, target, out var pair))
     {
-        return Results.Ok(pair);
+        return Results.Ok(new { pair });
     }
 
     return Results.BadRequest("No two sum solution found.");
