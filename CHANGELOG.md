@@ -1,4 +1,4 @@
-## [0.0.0-development](https://github.com/marcobradley/csharp-api-demo/compare/v3.0.0...v0.0.0-development) (2026-03-09)
+## [0.0.0-development](https://github.com/marcobradley/csharp-api-demo/compare/v3.0.1...v0.0.0-development) (2026-03-29)
 
 ### ⚠ BREAKING CHANGES
 
@@ -25,5 +25,6 @@
 
 * Add permissions for PR check workflow ([9e2d720](https://github.com/marcobradley/csharp-api-demo/commit/9e2d720f13cc7a0d4997801db196ea05390a570a))
 * renamed project ([51c305e](https://github.com/marcobradley/csharp-api-demo/commit/51c305e5c5c47f06b4f166b80543a9efe29345d0))
+* return json objects ([87c7b5a](https://github.com/marcobradley/csharp-api-demo/commit/87c7b5a3223de58a88b689772b3913d242583adb))
 * update release action token ([4489cef](https://github.com/marcobradley/csharp-api-demo/commit/4489cefdf7d1a3789445782016f3804830212a2d))
 * updated to be a post and adding test ([c5e826c](https://github.com/marcobradley/csharp-api-demo/commit/c5e826c3b8c05a479f101662511093948843d5c3))
